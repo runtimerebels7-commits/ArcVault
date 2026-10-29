@@ -1,0 +1,972 @@
+/* =========================================
+   ArcVault - BASIC VISUAL DESIGN
+   No background colours are used.
+   ========================================= */
+
+/* GENERAL */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+
+    color: #202a35;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+    margin-top: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    line-height: 1.3;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 20px;
+}
+
+a {
+    color: #176b62;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button,
+input,
+select {
+    font: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible {
+    outline: 2px solid #176b62;
+    outline-offset: 3px;
+}
+
+/* HEADER */
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 30px;
+    flex-wrap: wrap;
+
+    padding: 24px 6%;
+
+    border-bottom: 1px solid #d9dfe5;
+}
+
+```css
+/* ArcVault brand name */
+.brand h1 {
+    margin-bottom: 4px;
+
+    font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -1.6px;
+    line-height: 1.15;
+
+    color: #252231;
+
+    -webkit-font-smoothing: antialiased;
+    transition: letter-spacing 0.25s ease;
+}
+
+/* Subtle hover effect */
+.brand h1:hover {
+    letter-spacing: -1px;
+}
+
+/* Brand subtitle */
+.brand p {
+    margin-bottom: 0;
+
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.15px;
+
+    color: #626477;
+}
+
+
+
+.brand p {
+    margin-bottom: 0;
+    color: #66717e;
+    font-size: 13px;
+}
+
+.site-header nav {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 22px;
+}
+
+.site-header nav a {
+    color: #344054;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* MAIN CONTENT */
+
+main {
+    width: 100%;
+    max-width: 1400px;
+
+    margin: 0 auto;
+    padding: 0 6%;
+}
+
+.intro {
+    padding: 65px 0 45px;
+    border-bottom: 1px solid #d9dfe5;
+}
+
+.intro h2 {
+    max-width: 720px;
+    margin-bottom: 15px;
+
+    font-size: clamp(30px, 4vw, 45px);
+    letter-spacing: -1.5px;
+}
+
+.intro > p:not(.eyebrow):not(.demo-notice) {
+    max-width: 650px;
+    color: #66717e;
+    font-size: 16px;
+}
+
+.eyebrow {
+    margin-bottom: 10px;
+
+    color: #176b62;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.demo-notice {
+    display: inline-block;
+
+    margin-top: 12px;
+    padding: 8px 12px;
+
+    border: 1px dashed #a9b6c2;
+    border-radius: 5px;
+
+    color: #596675;
+    font-size: 12px;
+}
+
+/* EXPLORE SECTION */
+
+#explore {
+    padding-top: 45px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+    flex-wrap: wrap;
+
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    margin-bottom: 7px;
+}
+
+.section-heading p {
+    margin-bottom: 0;
+    color: #66717e;
+}
+
+/* SEARCH */
+
+.search-area {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    margin-bottom: 22px;
+}
+
+.search-area label,
+.filter-field label {
+    font-size: 13px;
+    font-weight: 700;
+}
+
+input,
+select {
+    width: 100%;
+    min-width: 0;
+
+    padding: 11px 12px;
+
+    border: 1px solid #cbd3dc;
+    border-radius: 6px;
+
+    color: #202a35;
+    outline-offset: 2px;
+}
+
+input:focus,
+select:focus {
+    border-color: #176b62;
+}
+
+/* FILTERS */
+
+.filters {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+
+    padding: 22px 0;
+
+    border-top: 1px solid #d9dfe5;
+    border-bottom: 1px solid #d9dfe5;
+}
+
+.filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.filter-actions {
+    display: flex;
+    justify-content: flex-end;
+
+    margin: 15px 0 35px;
+}
+
+/* BUTTONS */
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 40px;
+    padding: 9px 16px;
+
+    border: 1px solid #176b62;
+    border-radius: 6px;
+
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+}
+
+.button-primary {
+    color: #176b62;
+    border-color: #176b62;
+}
+
+.button-secondary {
+    color: #344054;
+    border-color: #cbd3dc;
+}
+
+.button:hover {
+    text-decoration: underline;
+}
+
+/* RESULTS HEADING */
+
+.results-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+    flex-wrap: wrap;
+
+    margin-bottom: 22px;
+}
+
+.results-heading h3 {
+    margin-bottom: 5px;
+}
+
+.results-heading p {
+    margin-bottom: 0;
+    color: #66717e;
+    font-size: 13px;
+}
+
+/* DATASET CARD GRID */
+
+.dataset-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+
+    align-items: start;
+}
+
+/* INDIVIDUAL DATASET CARD */
+
+.dataset-card {
+    min-width: 0;
+    padding: 24px;
+
+    border: 1px solid #d9dfe5;
+    border-radius: 10px;
+
+    overflow-wrap: anywhere;
+}
+
+.dataset-card:hover {
+    border-color: #829a99;
+}
+
+.card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    gap: 15px;
+}
+
+.card-title {
+    margin-bottom: 6px;
+    font-size: 20px;
+}
+
+.dataset-id {
+    margin-bottom: 15px;
+
+    color: #66717e;
+    font-size: 12px;
+}
+
+.price {
+    flex-shrink: 0;
+
+    color: #176b62;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: right;
+}
+
+.price small {
+    display: block;
+
+    color: #66717e;
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    margin: 15px 0;
+}
+
+.tag {
+    display: inline-block;
+
+    padding: 4px 9px;
+
+    border: 1px solid #d9dfe5;
+    border-radius: 4px;
+
+    color: #475467;
+    font-size: 11px;
+}
+
+.card-description {
+    margin: 15px 0;
+
+    color: #596675;
+    font-size: 13px;
+}
+
+.card-facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+
+    margin: 20px 0;
+    padding: 18px 0;
+
+    border-top: 1px solid #e0e5ea;
+    border-bottom: 1px solid #e0e5ea;
+}
+
+.fact-label {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #66717e;
+    font-size: 11px;
+}
+
+.fact-value {
+    display: block;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+/* STATUS LABELS */
+
+.status {
+    display: inline-block;
+
+    padding: 4px 8px;
+
+    border: 1px solid #cbd3dc;
+    border-radius: 4px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.status-active,
+.status-verified,
+.status-intact {
+    color: #176b62;
+    border-color: #8db9ad;
+}
+
+.status-expired,
+.status-revoked,
+.status-failed,
+.status-not-permitted {
+    color: #a33434;
+    border-color: #d9aaaa;
+}
+
+.status-unknown,
+.status-review {
+    color: #66717e;
+    border-color: #cbd3dc;
+}
+
+/* CARD ACTIONS */
+
+.card-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-top: 18px;
+}
+
+.compare-choice {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-right: auto;
+
+    color: #344054;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.compare-choice input {
+    width: auto;
+    min-width: auto;
+}
+
+/* MORE DETAILS */
+
+.dataset-details {
+    margin-top: 22px;
+    padding-top: 20px;
+
+    border-top: 1px solid #d9dfe5;
+}
+
+.dataset-details h4 {
+    margin: 22px 0 10px;
+    font-size: 15px;
+}
+
+.dataset-details h4:first-child {
+    margin-top: 0;
+}
+
+.dataset-details p {
+    margin-bottom: 9px;
+
+    color: #596675;
+    font-size: 13px;
+}
+
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.details-item {
+    min-width: 0;
+}
+
+.details-item strong {
+    display: block;
+    margin-bottom: 4px;
+
+    color: #344054;
+    font-size: 12px;
+}
+
+.details-item span {
+    color: #596675;
+    font-size: 13px;
+}
+
+.permission-result {
+    margin-top: 12px;
+    padding: 10px;
+
+    border: 1px dashed #a9b6c2;
+    border-radius: 5px;
+
+    font-size: 12px;
+}
+
+/* COMPARISON TABLE */
+
+.comparison-section {
+    margin-top: 55px;
+    padding-top: 35px;
+
+    border-top: 1px solid #d9dfe5;
+}
+
+.comparison-table-wrapper {
+    width: 100%;
+    margin: 25px 0;
+
+    overflow-x: auto;
+}
+
+.comparison-table {
+    width: 100%;
+
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.comparison-table th,
+.comparison-table td {
+    min-width: 150px;
+    padding: 14px;
+
+    border: 1px solid #d9dfe5;
+
+    font-size: 13px;
+    vertical-align: top;
+}
+
+.comparison-table th {
+    font-weight: 700;
+}
+
+.comparison-table th:first-child {
+    min-width: 160px;
+}
+
+.comparison-table .feature-name {
+    font-weight: 700;
+}
+
+/* OTHER PAGE SECTIONS */
+
+.placeholder-section {
+    margin-top: 60px;
+    padding: 35px 0;
+
+    border-top: 1px solid #d9dfe5;
+}
+
+.placeholder-section h2 {
+    margin-bottom: 12px;
+}
+
+.placeholder-section p:not(.eyebrow) {
+    max-width: 650px;
+    color: #66717e;
+}
+
+/* FOOTER */
+
+.site-footer {
+    margin-top: 50px;
+    padding: 30px 6%;
+
+    border-top: 1px solid #d9dfe5;
+}
+
+.site-footer h3 {
+    margin-bottom: 5px;
+}
+
+.site-footer p {
+    margin-bottom: 5px;
+
+    color: #66717e;
+    font-size: 12px;
+}
+
+/* HIDDEN ELEMENTS */
+
+[hidden] {
+    display: none !important;
+}
+
+/* RESPONSIVE LAYOUT */
+
+@media (max-width: 900px) {
+
+    .dataset-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .filters {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 550px) {
+
+    main {
+        padding: 0 5%;
+    }
+
+    .site-header {
+        padding: 20px 5%;
+    }
+
+    .site-header nav {
+        gap: 12px;
+    }
+
+    .site-header nav a {
+        font-size: 12px;
+    }
+
+    .filters {
+        grid-template-columns: 1fr;
+    }
+
+    .card-top {
+        flex-direction: column;
+    }
+
+    .price {
+        text-align: left;
+    }
+
+    .card-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .compare-choice {
+        margin-right: 0;
+    }
+
+    .details-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .results-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+}
+
+/* ==========================================================
+   PORTAL SELECTOR + PUBLISHER DASHBOARD (BLACK & WHITE ONLY)
+   ========================================================== */
+[hidden] { display: none !important; }
+body { color: #111; background: #fff; }
+a { color: #111; }
+.eyebrow { color: #333; }
+.button { border-color: #111; }
+.button-primary { background: #111; color: #fff; border-color: #111; }
+.button-secondary { background: #fff; color: #111; border-color: #bbb; }
+.button-primary:hover, .portal-button-dark:hover { background: #333; }
+.site-header nav a, .site-header nav a:hover { color: #111; }
+.status-active, .status-verified, .status-intact,
+.status-expired, .status-revoked, .status-failed, .status-not-permitted,
+.status-unknown, .status-review { color: #111; border-color: #aaa; }
+.price { color: #111; }
+.landing-page { min-height: 100vh; display: grid; place-items: center; padding: 28px; background: #fff; }
+.landing-card { width: min(100%, 1080px); padding: clamp(34px, 7vw, 88px) 28px; border: 2px solid #111; border-radius: 26px; text-align: center; background: #fff; }
+.landing-kicker { font-size: 11px; font-weight: 700; letter-spacing: 3px; margin-bottom: 18px; }
+.landing-card h1 { font-size: clamp(42px, 7vw, 76px); letter-spacing: -2px; margin: 0 0 14px; }
+.landing-subtitle { font-size: clamp(16px, 2vw, 24px); margin-bottom: 42px; color: #333; }
+.portal-buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: 18px; }
+.portal-button { min-width: 230px; padding: 17px 24px; border: 2px solid #111; border-radius: 12px; font: inherit; font-weight: 700; font-size: 18px; cursor: pointer; transition: transform .15s ease, background .15s ease; }
+.portal-button:hover { transform: translateY(-2px); }
+.portal-button-light { color: #111; background: #fff; }
+.portal-button-dark { color: #fff; background: #111; }
+.landing-footnote { margin: 34px 0 0; color: #555; font-size: 13px; }
+.portal-toolbar { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:18px 6%; border-bottom:1px solid #ddd; }
+.portal-label { font-size:12px; font-weight:800; letter-spacing:2px; }
+.publisher-main { max-width:1400px; margin:0 auto; padding:34px 6% 60px; }
+.panel { border:1px solid #d8d8d8; border-radius:12px; padding:clamp(20px, 3vw, 34px); background:#fff; }
+.publisher-login { max-width:620px; margin:48px auto; }
+.publisher-login h2 { font-size:clamp(28px, 4vw, 42px); margin-bottom:10px; }
+.publisher-login-form, .publisher-form { display:grid; gap:12px; }
+.publisher-login-form { margin-top:26px; }
+.publisher-login-form label, .publisher-form label { font-size:13px; font-weight:700; }
+.publisher-login-form input, .publisher-form input, .publisher-form select, .publisher-form textarea { width:100%; padding:12px; border:1px solid #bbb; border-radius:6px; background:#fff; color:#111; }
+.publisher-login-form .button { margin-top:8px; }
+.publisher-heading { display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; margin:10px 0 28px; }
+.publisher-heading h1 { font-size:clamp(30px, 4vw, 44px); margin-bottom:8px; }
+.publisher-heading p { color:#555; margin-bottom:0; }
+.publisher-stats { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-bottom:26px; }
+.stat-card { border:1px solid #ddd; border-radius:10px; padding:22px; }
+.stat-card span { display:block; color:#555; font-size:13px; margin-bottom:12px; }
+.stat-card strong { display:block; font-size:clamp(25px,3vw,36px); }
+.publisher-section { margin:24px 0; }
+.publisher-section .section-heading { margin-bottom:22px; }
+.publisher-section .section-heading h2 { margin-bottom:6px; }
+.publisher-form-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+.publisher-form-grid > div { display:flex; flex-direction:column; gap:7px; }
+.publisher-form textarea { resize:vertical; }
+.rights-fieldset { border:1px solid #ddd; border-radius:8px; padding:16px; display:flex; flex-wrap:wrap; gap:16px; }
+.rights-fieldset legend { font-weight:700; padding:0 6px; }
+.rights-fieldset label { display:flex; align-items:center; gap:7px; font-weight:400; }
+.rights-fieldset input { width:auto; }
+.publisher-table { width:100%; border-collapse:collapse; text-align:left; }
+.publisher-table th, .publisher-table td { padding:13px 12px; border-bottom:1px solid #e2e2e2; vertical-align:top; font-size:13px; }
+.publisher-table th { font-weight:800; white-space:nowrap; }
+.publisher-table button { margin:2px; }
+.table-wrap { width:100%; overflow-x:auto; }
+.empty-state { color:#555; padding:14px 0; }
+.site-toast { position:fixed; bottom:22px; right:22px; z-index:1000; max-width:360px; padding:14px 18px; background:#111; color:#fff; border-radius:8px; box-shadow:0 4px 18px #0002; }
+.site-footer { color:#111; }
+@media(max-width:800px) { .publisher-stats { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media(max-width:560px) { .landing-card { border-radius:18px; } .portal-button { width:100%; min-width:0; } .publisher-stats, .publisher-form-grid { grid-template-columns:1fr; } .portal-toolbar { padding:14px 5%; } .publisher-main { padding:24px 5% 40px; } .publisher-table th, .publisher-table td { padding:10px; } }
+
+
+/* =========================================
+   ARCVault — Soft Pastel Gradient Background
+   ========================================= */
+
+html {
+    min-height: 100%;
+    background: #fffaff;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+
+    background:
+        radial-gradient(
+            ellipse at 0% 0%,
+            rgba(244, 207, 245, 0.75) 0%,
+            rgba(244, 207, 245, 0) 48%
+        ),
+        radial-gradient(
+            ellipse at 100% 0%,
+            rgba(232, 216, 255, 0.70) 0%,
+            rgba(232, 216, 255, 0) 45%
+        ),
+        radial-gradient(
+            ellipse at 100% 100%,
+            rgba(255, 218, 239, 0.65) 0%,
+            rgba(255, 218, 239, 0) 45%
+        ),
+        linear-gradient(
+            135deg,
+            #fffaff 0%,
+            #fcf5ff 45%,
+            #fff5fa 100%
+        );
+
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    color: #292435;
+}
+
+/* Keep the main application background transparent
+   so the pastel gradient remains visible. */
+
+.app,
+.app-page,
+main,
+.main-content,
+.content,
+.dashboard {
+    background-color: transparent;
+}
+
+/* Optional: soft pastel surfaces for cards */
+
+.card,
+.dataset-card,
+.stat-card,
+.dashboard-card {
+    background-color: rgba(255, 255, 255, 0.88);
+    border: 1px solid rgba(220, 198, 230, 0.45);
+    box-shadow: 0 4px 18px rgba(105, 76, 130, 0.06);
+}
+
+
+
+
+
+
+
+/* ==========================================
+   ARCVault LANDING PAGE — PASTEL GRADIENT
+   Add this at the VERY BOTTOM of style.css
+   ========================================== */
+
+/* Overall page background */
+html,
+body {
+    min-height: 100%;
+    margin: 0;
+}
+
+body {
+    background-color: #fffaff;
+    background-image:
+        radial-gradient(
+            ellipse at 5% 5%,
+            rgba(244, 196, 235, 0.65) 0%,
+            transparent 42%
+        ),
+        radial-gradient(
+            ellipse at 95% 10%,
+            rgba(220, 205, 255, 0.65) 0%,
+            transparent 42%
+        ),
+        radial-gradient(
+            ellipse at 90% 95%,
+            rgba(255, 210, 235, 0.60) 0%,
+            transparent 40%
+        ),
+        linear-gradient(
+            135deg,
+            #fffaff 0%,
+            #fdf5ff 50%,
+            #fff5fa 100%
+        );
+
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+/* Landing page container
+   These selectors cover common landing-page class names. */
+.home-page,
+.homepage,
+.landing-page,
+.landing,
+#homePage,
+#home,
+#landingPage {
+    background: transparent !important;
+}
+
+/* Keep the central landing card white, as in your design */
+.home-page .hero,
+.homepage .hero,
+.landing-page .hero,
+.landing .hero,
+#homePage .hero,
+#home .hero,
+#landingPage .hero {
+    background: rgba(255, 255, 255, 0.78);
+    border: 1.5px solid #29252d;
+    border-radius: 28px;
+    backdrop-filter: blur(8px);
+}
+
+/* Preserve black-and-white portal buttons */
+.home-page button,
+.homepage button,
+.landing-page button,
+.landing button,
+#homePage button,
+#home button,
+#landingPage button {
+    border-radius: 14px;
+}
+
+/* Prevent application sections from painting a white
+   background over the page gradient */
+.app-page,
+.app,
+main,
+.main-content {
+    background-color: transparent;
+}
+
+
+
+
+/* ArcVault budget optimiser panel */
+.optimisation-panel { padding: 1.25rem; margin-top: 1rem; }
+#optimisationForm { display: grid; gap: .65rem; max-width: 34rem; }
+#optimisationForm input, #optimisationForm select { padding: .75rem; width: 100%; }
+#optimisationResults { white-space: pre-wrap; overflow-wrap: anywhere; margin-top: 1rem; }

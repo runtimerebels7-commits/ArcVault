@@ -1,0 +1,190 @@
+    def run(  # type: ignore[override]
+        self,
+        shots: int = 1024,
+        experiment_name: str = "Default Experiment",
+        need_statevector: bool = True,
+        need_density_matrix: bool = False,
+        device_name: str = "QpiAI-QSV-Local",
+        reverse_bits: bool = False,
+        **kwargs,
+    ) -> QAOAResult:
+        """
+        Execute QAOA optimization by repeatedly evaluating a parametrized circuit
+        on a backend determined by the high-level device_name.
+
+        Args:
+            problem: Optimization problem (required, must have n_qubits and get_hamiltonian_terms)
+            shots: Number of measurement shots
+            experiment_name: Name of the experiment (default: "Default Experiment")
+            device_name: Target device name ('QpiAI-QSV-Local', 'QpiAI-QSV-Simulator', 'QpiAI-QDM-Simulator', 'QpiAI-QTN-Simulator', 'QpiAI-Indus-1')
+            reverse_bits: Reverse bit order in results
+            **kwargs: Additional parameters
+
+        Returns:
+            QAOAResult: Optimization results including solution and quality metrics
+        """
+        # Map high-level device_name to low-level (device, method)
+        from qpiai_quantum.circuit.circuit import _map_device_name_to_method
+
+        method = _map_device_name_to_method(device_name)
+
+        if "problem" in kwargs:
+            self.problem = kwargs["problem"]
+
+        if self.problem is None:
+            raise ValueError(
+                "QAOA requires a problem parameter (either in __init__ or run)"
+            )
+
+        self.shots = shots
+
+        # Validate problem
+        if not hasattr(self.problem, "n_qubits"):
+            raise ValueError("Problem must have n_qubits attribute")
+
+        if not hasattr(self.problem, "get_hamiltonian_terms"):
+            raise ValueError("Problem must have get_hamiltonian_terms() method")
+
+        self.num_qubits = self.problem.n_qubits
+
+        # Get and validate ansatz
+        ansatz = self._get_ansatz()
+
+        # Count parameters (2 per layer for standard QAOA: gamma and beta)
+        n_params = count_parameters(ansatz)
+
+        # Initialize parameters
+        if self.initial_params is not None:
+            params = np.array(self.initial_params, dtype=float)
+            if len(params) != n_params:
+                raise ValueError(
+                    f"initial_params has {len(params)} parameters "
+                    f"but ansatz requires {n_params} parameters"
+                )
+        else:
+            # Initialize with small random values for QAOA
+            params = np.random.uniform(0, np.pi / 2, n_params)
+            self.initial_params = params
+
+        def objective(theta: np.ndarray) -> float:
+            """Compute energy for given parameters."""
+            circuit = self._build_circuit(ansatz, theta)
+            result = self._execute_circuit(
+                circuit,
+                method=method,
+                device_name=device_name,
+                shots=shots,
+                experiment_name=experiment_name,
+                reverse_bits=reverse_bits,
+            )
+            return self._compute_expectation(result)
+
+        # Run optimization
+        opt_result = self._optimize_parameters(
+            objective=objective,
+            initial_point=self.initial_params,
+            n_params=n_params,
+            **kwargs,
+        )
+
+        best_params, best_energy, opt_info = opt_result
+        actual_iterations = opt_info.get("nit", 0)
+        actual_nfev = opt_info.get("nfev", 0)
+
+        # Print completion summary
+        if self.verbose:
+            print("\n" + "=" * 70)
+            print("QAOA OPTIMIZATION COMPLETED")
+            print("=" * 70)
+            print(f"Actual Iterations:   {actual_iterations}")
+            print(f"Max Iterations:      {self.max_iterations}")
+            print(f"Circuit Evaluations: {actual_nfev}")
+            print(f"Final Energy:        {best_energy:.6f}")
+            print(f"Success:             {opt_info.get('success', False)}")
+
+            if actual_iterations < self.max_iterations:
+                print(
+                    f"\n Note: Optimizer converged early (stopped at iteration {actual_iterations})"
+                )
+            elif actual_iterations == self.max_iterations:
+                print("\n Note: Optimizer reached max_iterations limit")
+
+            print("=" * 70 + "\n")
+
+        # Get final measurement results
+        final_circuit = self._build_circuit(ansatz, best_params)
+        final_result = self._execute_circuit(
+            final_circuit,
+            method=method,
+            device_name=device_name,
+            shots=shots,
+            experiment_name=experiment_name,
+            reverse_bits=reverse_bits,
+        )
+
+        final_counts = (
+            {k: int(v) for k, v in final_result.counts.items()}
+            if final_result.counts
+            else {}
+        )
+
+        # Get best bitstring
+        if final_counts:
+            best_bitstring = max(final_counts.items(), key=lambda x: x[1])[0]
+        else:
+            best_bitstring = "0" * self.num_qubits
+            warnings.warn(
+                f"No measurement counts returned. Using default bitstring: {best_bitstring}",
+                UserWarning,
+                stacklevel=2,
+            )
+
+        # Decode solution using problem's decoder
+        if hasattr(self.problem, "decode_solution"):
+            solution = self.problem.decode_solution(best_bitstring)
+        else:
+            solution = best_bitstring
+
+        # Validate solution
+        if hasattr(self.problem, "validate_solution"):
+            is_valid, validation_message = self.problem.validate_solution(solution)
+        else:
+            is_valid = True
+            validation_message = "Validation not available"
+
+        # Compute quality metrics
+        if hasattr(self.problem, "compute_solution_quality"):
+            quality_metrics = self.problem.compute_solution_quality(solution)
+        else:
+            quality_metrics = {}
+
+        return QAOAResult(
+            optimal_parameters=best_params.tolist(),
+            optimal_energy=float(best_energy),
+            energy_history=opt_info.get("history", []),
+            param_history=[p.tolist() for p in opt_info.get("param_history", [])],
+            solution=solution,
+            bitstring=best_bitstring,
+            counts=final_counts,
+            is_valid=is_valid,
+            validation_message=validation_message,
+            quality_metrics=quality_metrics,
+            metadata={
+                "success": opt_info.get("success", False),
+                "actual_iterations": actual_iterations,
+                "max_iterations_limit": self.max_iterations,
+                "circuit_evaluations": actual_nfev,
+                "message": opt_info.get("message", ""),
+                "method": method,
+                "device_name": device_name,
+                "experiment_name": experiment_name,
+                "reverse_bits": reverse_bits,
+                "shots": shots,
+                "n_parameters": n_params,
+                "optimizer": self.optimizer,
+                "layers": self.layers,
+                "ansatz": str(self.ansatz),
+                "mixer": self.mixer,
+                "converged_early": actual_iterations < self.max_iterations,
+            },
+        )

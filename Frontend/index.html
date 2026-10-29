@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ArcVault | Dataset Marketplace</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- LANDING PAGE -->
+    <section id="landingPage" class="landing-page">
+        <div class="landing-card">
+            <p class="landing-kicker">REGIONAL DATA · RIGHTS · TRUST</p>
+            <h1>ArcVault</h1>
+            <p class="landing-subtitle">Rights-aware regional-language dataset marketplace</p>
+            <div class="portal-buttons">
+                <button class="portal-button portal-button-light" id="openUserPortal">User Portal</button>
+                <button class="portal-button portal-button-dark" id="openPublisherPortal">Publisher Portal</button>
+            </div>
+            <p class="landing-footnote">Discover datasets. Understand licences. Make informed decisions.</p>
+        </div>
+    </section>
+
+    <!-- USER PORTAL: your existing marketplace -->
+    <div id="userPortalPage" class="portal-page" hidden>
+        <div class="portal-toolbar">
+            <button class="button button-secondary" id="userHomeButton">← Home</button>
+            <span class="portal-label">USER PORTAL</span>
+        </div>
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="brand">
+            <h1>ArcVault</h1>
+            <p>Regional-Language Dataset Marketplace</p>
+        </div>
+
+        <nav>
+            <a href="#dashboard">Dashboard</a>
+            <a href="#explore">Explore Datasets</a>
+            <a href="#register">Register Dataset</a>
+            <a href="#audit">Audit Log</a>
+        </nav>
+    </header>
+
+
+    <!-- INTRODUCTION -->
+    <main>
+        <section id="dashboard" class="intro">
+            <p class="eyebrow">DISCOVER · COMPARE · VERIFY</p>
+
+            <h2>Find the right dataset for your AI project.</h2>
+
+            <p>
+                Explore regional-language datasets, compare licensing
+                conditions, and check whether a dataset suits your
+                intended use.
+            </p>
+
+            <p class="demo-notice">
+                Prototype preview: all displayed dataset entries are fictional.
+            </p>
+        </section>
+
+
+        <!-- DATASET EXPLORER -->
+        <section id="explore">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">DATASET CATALOGUE</p>
+                    <h2>Explore Datasets</h2>
+                    <p>Find datasets by language, category, price, and usage rights.</p>
+                </div>
+            </div>
+
+
+            <!-- SEARCH -->
+            <div class="search-area">
+                <label for="searchInput">Search datasets</label>
+
+                <input
+                    type="search"
+                    id="searchInput"
+                    placeholder="Try Malayalam literature, speech, education..."
+                >
+            </div>
+
+
+            <!-- FILTERS -->
+            <div class="filters">
+
+                <div class="filter-field">
+                    <label for="languageFilter">Language</label>
+
+                    <select id="languageFilter">
+                        <option value="">All Languages</option>
+                        <option value="Malayalam">Malayalam</option>
+                        <option value="Tamil">Tamil</option>
+                        <option value="Kannada">Kannada</option>
+                        <option value="Hindi">Hindi</option>
+                    </select>
+                </div>
+
+                <div class="filter-field">
+                    <label for="categoryFilter">Category</label>
+
+                    <select id="categoryFilter">
+                        <option value="">All Categories</option>
+                        <option value="Literature">Literature</option>
+                        <option value="Education">Education</option>
+                        <option value="Speech">Speech</option>
+                        <option value="News">News</option>
+                    </select>
+                </div>
+
+                <div class="filter-field">
+                    <label for="useFilter">Intended Use</label>
+
+                    <select id="useFilter">
+                        <option value="">Any Use</option>
+                        <option value="research">Research</option>
+                        <option value="commercial">Commercial AI Training</option>
+                        <option value="education">Educational Use</option>
+                    </select>
+                </div>
+
+                <div class="filter-field">
+                    <label for="maxPrice">Maximum Price (₹)</label>
+
+                    <input
+                        type="number"
+                        id="maxPrice"
+                        min="0"
+                        placeholder="e.g. 5000"
+                    >
+                </div>
+
+                <div class="filter-field">
+                    <label for="licenceFilter">Licence Status</label>
+
+                    <select id="licenceFilter">
+                        <option value="">All Statuses</option>
+                        <option value="Active">Active</option>
+                        <option value="Expired">Expired</option>
+                        <option value="Revoked">Revoked</option>
+                    </select>
+                </div>
+
+                <div class="filter-field">
+                    <label for="verificationFilter">Signature Status</label>
+
+                    <select id="verificationFilter">
+                        <option value="">All Statuses</option>
+                        <option value="Verified">Verified</option>
+                        <option value="Failed">Failed</option>
+                        <option value="Unknown">Unknown</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="filter-actions">
+                <button type="button" id="clearFilters" class="button button-secondary">
+                    Clear Filters
+                </button>
+            </div>
+
+
+            <!-- RESULTS HEADING -->
+            <div class="results-heading">
+                <div>
+                    <h3>Available Datasets</h3>
+                    <p id="resultCount" aria-live="polite"></p>
+                </div>
+
+                <button type="button" id="compareButton" class="button button-primary">
+                    Compare Selected (0)
+                </button>
+            </div>
+
+
+            <!-- DATASET CARDS -->
+            <div id="datasetContainer" class="dataset-grid">
+                <p>Loading datasets...</p>
+            </div>
+
+
+            <!-- COMPARISON SECTION -->
+            <section id="comparisonSection" class="comparison-section" hidden>
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">SIDE-BY-SIDE ANALYSIS</p>
+                        <h2>Compare Datasets</h2>
+                        <p>Review important differences before making a decision.</p>
+                    </div>
+
+                    <button type="button" id="closeComparison" class="button button-secondary">
+                        Close
+                    </button>
+                </div>
+
+                <div id="comparisonTable" class="comparison-table-wrapper"></div>
+
+                <button type="button" id="clearCompare" class="button button-secondary">
+                    Clear Selection
+                </button>
+
+            </section>
+
+        </section>
+
+
+        <!-- ARCVault BUDGET OPTIMISER -->
+        <section id="optimisation" class="section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">LICENCE-AWARE SELECTION</p>
+                    <h2>Budget Optimiser</h2>
+                    <p>Only datasets approved by the backend rights checks can be considered.</p>
+                </div>
+            </div>
+            <div class="panel optimisation-panel">
+                <form id="optimisationForm">
+                    <label for="optimisationBudget">Licensing budget</label>
+                    <input id="optimisationBudget" type="number" min="0" step="0.01" value="5000" required>
+                    <label for="optimisationUse">Intended use</label>
+                    <select id="optimisationUse">
+                        <option value="commercial_training">Commercial AI training</option>
+                        <option value="research">Research</option>
+                        <option value="education">Education</option>
+                    </select>
+                    <button class="button button-primary" type="submit">Find the best eligible selection</button>
+                </form>
+                <p id="optimisationStatus" role="status">Start the backend to run optimisation against registered datasets.</p>
+                <pre id="optimisationResults" hidden></pre>
+            </div>
+        </section>
+
+        <!-- REGISTER DATASET -->
+        <section id="register" class="placeholder-section">
+            <p class="eyebrow">FOR DATA OWNERS</p>
+            <h2>Register a Dataset</h2>
+
+            <p>
+                Dataset owners will be able to submit dataset information,
+                licence terms, and rights evidence.
+            </p>
+
+            <p>This feature will be connected to the backend later.</p>
+        </section>
+
+
+        <!-- AUDIT LOG -->
+        <section id="audit" class="placeholder-section">
+            <p class="eyebrow">TRANSPARENCY</p>
+            <h2>Audit Log</h2>
+
+            <p>
+                Review events such as dataset registration, permission checks,
+                and rights verification.
+            </p>
+
+            <p>This feature will be connected to the backend later.</p>
+        </section>
+
+    </main>
+
+
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <h3>ArcVault</h3>
+        <p>Rights-aware regional-language dataset discovery.</p>
+        <p>Hackathon prototype · Demo data only</p>
+    </footer>
+
+
+
+    </div>
+
+    <!-- PUBLISHER PORTAL -->
+    <section id="publisherPortalPage" class="portal-page publisher-page" hidden>
+        <div class="portal-toolbar">
+            <button class="button button-secondary" id="publisherHomeButton">← Home</button>
+            <span class="portal-label">PUBLISHER PORTAL</span>
+        </div>
+
+        <main class="publisher-main">
+            <section id="publisherLogin" class="publisher-login panel">
+                <p class="eyebrow">PUBLISHER WORKSPACE</p>
+                <h2>Manage your publications</h2>
+                <p>Sign in to register datasets, set licensing terms, and track usage.</p>
+                <form id="publisherLoginForm" class="publisher-login-form">
+                    <label for="publisherName">Publisher / organisation name</label>
+                    <input id="publisherName" required placeholder="e.g. South India Language Lab">
+                    <label for="publisherEmail">Email address</label>
+                    <input id="publisherEmail" type="email" required placeholder="you@example.com">
+                    <label for="publisherPassword">Password (minimum 8 characters)</label>
+                    <input id="publisherPassword" type="password" minlength="8" required autocomplete="current-password" placeholder="Enter a password">
+                    <button class="button button-primary" type="submit">Sign in / Create account</button>
+                </form>
+                <p class="demo-notice">Your publisher account and dataset listings are stored by the ArcVault API in the shared database.</p>
+            </section>
+
+            <div id="publisherDashboard" hidden>
+                <div class="publisher-heading">
+                    <div><p class="eyebrow">PUBLISHER WORKSPACE</p><h1 id="publisherWelcome">Your dashboard</h1>
+                    <p>Manage dataset listings and monitor demo activity.</p></div>
+                    <button class="button button-secondary" id="publisherLogout">Sign out</button>
+                </div>
+
+                <div class="publisher-stats">
+                    <article class="stat-card"><span>Published datasets</span><strong id="pubStatDatasets">0</strong></article>
+                    <article class="stat-card"><span>Total views</span><strong id="pubStatViews">0</strong></article>
+                    <article class="stat-card"><span>Purchases</span><strong id="pubStatPurchases">0</strong></article>
+                    <article class="stat-card"><span>Demo revenue</span><strong id="pubStatRevenue">₹0</strong></article>
+                </div>
+
+                <section class="panel publisher-section">
+                    <div class="section-heading"><div><p class="eyebrow">DATASET MANAGEMENT</p><h2>Upload publication details</h2>
+                    <p>Add a dataset listing and define its licence and price.</p></div></div>
+                    <form id="publisherDatasetForm" class="publisher-form">
+                        <div class="publisher-form-grid">
+                            <div><label for="pubDatasetName">Publication / dataset name *</label><input id="pubDatasetName" required placeholder="e.g. Kannada Speech Dataset"></div>
+                            <div><label for="pubLanguage">Language *</label><select id="pubLanguage" required><option value="">Choose language</option><option>Malayalam</option><option>Tamil</option><option>Kannada</option><option>Telugu</option><option>Hindi</option><option>Other</option></select></div>
+                            <div><label for="pubCategory">Category *</label><select id="pubCategory" required><option value="">Choose category</option><option>Literature</option><option>Education</option><option>Speech</option><option>News</option><option>Images</option><option>Other</option></select></div>
+                            <div><label for="pubFormat">File format *</label><select id="pubFormat" required><option value="">Choose format</option><option>CSV</option><option>JSON</option><option>WAV</option><option>TXT</option><option>Parquet</option><option>Other</option></select></div>
+                            <div><label for="pubSize">Dataset size *</label><input id="pubSize" required placeholder="e.g. 25,000 records"></div>
+                            <div><label for="pubPrice">Licence price (₹) *</label><input id="pubPrice" type="number" min="0" required placeholder="e.g. 2500"></div>
+                            <div><label for="pubLicence">Licence type *</label><select id="pubLicence" required><option value="">Choose licence</option><option>Research only</option><option>Research and education</option><option>Commercial licence</option><option>Custom licence</option></select></div>
+                            <div><label for="pubExpiry">Licence expiry date</label><input id="pubExpiry" type="date"></div>
+                        </div>
+                        <fieldset class="rights-fieldset"><legend>Permitted uses</legend>
+                            <label><input type="checkbox" id="pubResearch" checked> Research</label>
+                            <label><input type="checkbox" id="pubEducation"> Education</label>
+                            <label><input type="checkbox" id="pubCommercial"> Commercial AI training</label>
+                            <label><input type="checkbox" id="pubDerivatives"> Derivative works</label>
+                            <label><input type="checkbox" id="pubRedistribution"> Redistribution</label>
+                        </fieldset>
+                        <div><label for="pubDescription">Description and restrictions *</label><textarea id="pubDescription" required rows="4" placeholder="Describe the dataset, rights evidence, and restrictions..."></textarea></div>
+                        <button class="button button-primary" type="submit">Publish dataset listing</button>
+                    </form>
+                </section>
+
+                <section class="panel publisher-section">
+                    <div class="section-heading"><div><p class="eyebrow">YOUR CATALOGUE</p><h2>Published datasets</h2><p>Review your listings and their demo activity.</p></div></div>
+                    <div class="table-wrap"><table class="publisher-table"><thead><tr><th>Publication</th><th>Language</th><th>Licence</th><th>Price</th><th>Views</th><th>Purchases</th><th>Actions</th></tr></thead><tbody id="publisherPublications"></tbody></table></div>
+                    <p id="publisherEmpty" class="empty-state">You have not published any datasets yet.</p>
+                </section>
+
+                <section class="panel publisher-section">
+                    <div class="section-heading"><div><p class="eyebrow">ACTIVITY & REVENUE</p><h2>Publication transactions</h2><p>See which publication was purchased, when, and its transaction details.</p></div></div>
+                    <div class="table-wrap"><table class="publisher-table"><thead><tr><th>Transaction ID</th><th>Publication</th><th>Date</th><th>Type</th><th>Amount</th><th>Status</th></tr></thead><tbody id="publisherTransactions"></tbody></table></div>
+                    <p id="transactionsEmpty" class="empty-state">No demo purchases yet. Transactions will appear here when sample activity is recorded.</p>
+                </section>
+                <p class="demo-notice">Views and demo transactions are recorded by the local API. Purchases are simulations only; no real payments are processed.</p>
+            </div>
+        </main>
+    </section>
+
+    <div id="siteToast" class="site-toast" role="status" aria-live="polite" hidden></div>
+
+    <script src="script.js"></script>
+    <script src="portals.js"></script>
+    <script src="optimization.js"></script>
+
+</body>
+</html>

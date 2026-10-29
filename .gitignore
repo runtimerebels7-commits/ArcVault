@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+Backend/.venv/
+# Local databases and logs
+*.sqlite3
+*.db
+data/*.log
+Backend/arcvault.db
+# Secrets
+.env
+.env.*
+!.env.example
+keys/private_key.pem
+keys/public_key.pem

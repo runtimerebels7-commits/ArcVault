@@ -1,0 +1,1 @@
+Signing keys are generated locally. Run `python -m web3_module.generate_keys` from the project root. Never share or commit private_key.pem.
